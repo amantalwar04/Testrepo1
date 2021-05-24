@@ -1,72 +1,185 @@
-<p align="right">
-    <a href="https://badge.fury.io/rb/just-the-docs"><img src="https://badge.fury.io/rb/just-the-docs.svg" alt="Gem version"></a> <a href="https://github.com/pmarsceill/just-the-docs/actions?query=workflow%3A%22Master+branch+CI%22"><img src="https://github.com/pmarsceill/just-the-docs/workflows/Master%20branch%20CI/badge.svg" alt="Build status"></a>
-</p>
-<br><br>
-<p align="center">
-    <h1 align="center">Just the Docs</h1>
-    <p align="center">A modern, highly customizable, and responsive Jekyll theme for documentation with built-in search.<br>Easily hosted on GitHub Pages with few dependencies.</p>
-    <p align="center"><strong><a href="https://pmarsceill.github.io/just-the-docs/">See it in action!</a></strong></p>
-    <br><br><br>
-</p>
+# HyperMD
 
-![jtd](https://user-images.githubusercontent.com/896475/47384541-89053c80-d6d5-11e8-98dc-dba16e192de9.gif)
+![HyperMD Markdown Editor](./demo/logo.png)
 
-## Installation
+**Breaks the Wall** between *writing* and *preview*, in a Markdown Editor.
 
-Add this line to your Jekyll site's Gemfile:
+[![NPM version](https://img.shields.io/npm/v/hypermd.svg?style=flat-square)](https://npmjs.org/package/hypermd) [![Build Status](https://travis-ci.org/laobubu/HyperMD.svg?branch=master)](https://travis-ci.org/laobubu/HyperMD)
 
-```ruby
-gem "just-the-docs"
+[Online Demo](https://laobubu.net/HyperMD/) | [Examples][] | [Documentation][doc]
+
+[中文介绍](./docs/zh-CN/README.md)
+
+
+## [Quickstart](./docs/quick-start.md)
+
+```javascript
+// npm install --save hypermd codemirror
+var HyperMD = require('hypermd')
+var myTextarea = document.getElementById('input-area')
+var editor = HyperMD.fromTextArea(myTextarea)
 ```
 
-And add this line to your Jekyll site's `_config.yml`:
+[![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/remix/hello-hypermd)
 
-```yaml
-theme: just-the-docs
-```
+Also for RequireJS, Parcel, webpack, plain browser env. [Read the Doc](./docs/quick-start.md)
 
-And then execute:
 
-    $ bundle
+## Why use HyperMD?
 
-Or install it yourself as:
+HyperMD is a set of [CodeMirror][] add-ons / modes / themes / commands / keymap etc.
 
-    $ gem install just-the-docs
+You may use both original CodeMirror and HyperMD on the same page.
 
-Alternatively, you can run it inside Docker while developing your site
+### 🌈 Write, and preview on the fly
 
-    $ docker-compose up
+- **Regular Markdown** blocks and elements
+  + **Strong**, *Emphasis*, ~~Strikethrough~~, `Code`
+  + [Links](https://laobubu.net), Images
+  + Title / Quote / Code Block / List / Horizontal Rule
+- **Markdown Extension**
+  + Simple Table
+  + Footnote [^1]
+  + [x] TODO List *(the box is clickable)*
+  + YAML Front Matter
+  + $\LaTeX$ Formula, inline or block display mode [^4]
+  + Emoji: `:joy:` => :joy: [(also support custom emoji)](https://laobubu.net/HyperMD/docs/examples/custom-emoji.html)
+- **And more**
+  + <span style="color:red">HTML in Markdown</span> -- WYSIWIG MDX is possible
+  + #hashtag support [^6] , see [demo](https://laobubu.net/HyperMD/docs/examples/hashtag.html)
+  + Flowchart and Diagrams ([mermaid](https://laobubu.net/HyperMD/docs/examples/mermaid.html) or   [flowchart.js](https://laobubu.net/HyperMD/docs/examples/flowchart.html))
 
-## Usage
+### 💪 Better **Markdown-ing Experience**
 
-[View the documentation](https://pmarsceill.github.io/just-the-docs/) for usage information.
+- **Upload Images** and files via clipboard, or drag'n'drop
+- **Alt+Click** to open link / jump to footnote [^1]
+- **Hover** to read footnotes
+- **Copy and Paste**, translate HTML into Markdown [^5]
+- Easy and ready-to-use **Key-bindings** (aka. KeyMap)
+
+### 🎁 **CodeMirror** benefits
+
+- Syntax Highlight for code blocks, supports 120+ languages[^2]. Mode can be loaded on-demand.
+- Configurable key-bindings
+- Diff and Merge
+- Themes [^3]
+- Almost all of CodeMirror addons!
+
+### 🔨 Extensible and Customizable
+
+- Use **PowerPacks** to integrate 3rd-party libs and services on-the-fly
+  - [MathJax][], [marked][], [KaTeX][] and more.
+  - *[Read the list][powerpacks]*
+- HyperMD functions are highly **modulized**
+
+### 🎹 Tailored **KeyMap** "HyperMD":
+
++ **Table**
+  - <kbd>Enter</kbd> Create a table with `| column | line |`
+  - <kbd>Enter</kbd> Insert new row, or finish a table (if last row is empty)
+  - <kbd>Tab</kbd> or <kbd>Shift-Tab</kbd> to navigate between cells
++ **List**
+  - <kbd>Tab</kbd> or <kbd>Shift-Tab</kbd> to indent/unindent current list item
++ **Formatting** a nearby word (or selected text)
+  - <kbd>Ctrl+B</kbd> **bold**
+  - <kbd>Ctrl+I</kbd> *emphasis*
+  - <kbd>Ctrl+D</kbd> ~~strikethrough~~
+
+## Special Thanks
+
+💎 **Service and Resource**
+
+<table>
+  <tr>
+    <td width="50%">
+      <b><a href="https://icomoon.io/#icons-icomoon">IcoMoon</a></b> - The IconPack(Free Version)<br>
+      <small>
+        <em>Demo Page</em> uses IcoMoon icons. Related files are stored in <a href="https://github.com/laobubu/HyperMD/tree/master/demo/svgicon">demo/svgicon</a>.
+      </small>
+    </td>
+    <td>
+      <b><a href="http://www.codecogs.com">CodeCogs</a></b> - An Open Source Scientific Library<br>
+      <small>
+        <em>FoldMath</em> uses codecogs' service as the default TeX MathRenderer.<br>
+        (You may load PowerPack to use other renderer, eg. KaTeX or MathJax)
+      </small>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <b><a href="https://sm.ms/">SM.MS</a></b> - A Free Image Hosting service<br>
+      <small>
+        <em>Demo Page</em> and <em>PowerPack/insert-file-with-smms</em> use SM.MS open API to upload user-inserted images.<br>
+        (If you want to integrate SM.MS service, use the PowerPack)
+      </small>
+    </td>
+    <td>
+      <b><a href="https://www.emojione.com/">EmojiOne</a></b> - Open emoji icons<br>
+      <small>
+        <em>Demo Page</em> and <em>PowerPack/fold-emoji-with-emojione</em> use
+        Emoji icons provided free by <a href="https://www.emojione.com/">EmojiOne</a>
+        <a href="https://www.emojione.com/licenses/free"><em>(free license)</em></a><br>
+        (You may use other alternatives, eg. twemoji from twitter)
+      </small>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <b><a href="https://codemirror.net/">CodeMirror</a></b> - In-browser code editor.<br>
+      <b><a href="http://requirejs.org/">RequireJS</a></b> - A JavaScript AMD module loader.<br>
+      <b><a href="https://khan.github.io/KaTeX/">KaTeX</a></b> - The fastest math typesetting library for the web.<br>
+      <b><a href="https://github.com/chjj/marked/">marked</a></b>,
+      <b><a href="https://github.com/domchristie/turndown/">turndown</a></b>
+      and more remarkable libs.
+      <br>
+    </td>
+  </tr>
+</table>
+
+
+🌟 **Sponsors**
+
+<table>
+  <tr>
+    <td><a href="http://www.umbst.com/" target="_blank"><img src="http://www.umbst.com/assets/images/logo.svg" height="38" width="38" title="圆伞科技"></a></td>
+  </tr>
+</table>
+
+
+🙏 **Sponsors** _(sorted by date)_
+
+<div class="sponsors">
+  <span>☕Phithon</span> <span>☕c*i</span> <span>☕*Yuan</span> <span>☕*Xiuzhang</span>
+  <span>☕*Junjie</span> <span>🌟圆伞科技</span> <span>☕*Di</span>
+</div>
+
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/pmarsceill/just-the-docs. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+HyperMD is a personal Open-Source project by [laobubu].
+Contributions are welcomed. You may:
 
-### Submitting code changes:
+- [Fork on GitHub](https://github.com/laobubu/HyperMD/) , create your amazing themes and add-ons.
+- [Buy me a Coffee](https://laobubu.net/donate.html)
+- Spread HyperMD to the world!
 
-- Open a [Pull Request](https://github.com/pmarsceill/just-the-docs/pulls)
-- Ensure all CI tests pass
-- Await code review
-- Bump the version number in `just-the-docs.gemspec` and `package.json` according to [semantic versioning](https://semver.org/).
 
-### Design and development principles of this theme:
 
-1. As few dependencies as possible
-2. No build script needed
-3. First class mobile experience
-4. Make the content shine
+-------------------------------------------------------
 
-## Development
+[CodeMirror]: https://codemirror.net/
+[RequireJS]: http://requirejs.org/
+[MathJax]: https://www.mathjax.org/
+[marked]: https://github.com/chjj/marked/
+[katex]: https://khan.github.io/KaTeX/
+[laobubu]: https://laobubu.net/
+[doc]: https://laobubu.net/HyperMD/docs/
+[powerpacks]: https://laobubu.net/HyperMD/#./docs/powerpacks.md
+[examples]: https://laobubu.net/HyperMD/docs/examples/index.html
 
-To set up your environment to develop this theme, run `bundle install`.
-
-Your theme is set up just like a normal Jekyll site! To test your theme, run `bundle exec jekyll serve` and open your browser at `http://localhost:4000`. This starts a Jekyll server using your theme. Add pages, documents, data, etc. like normal to test your theme's contents. As you make modifications to your theme and to your content, your site will regenerate and you should see the changes in the browser after a refresh, just like normal.
-
-When the theme is released, only the files in `_layouts`, `_includes`, and `_sass` tracked with Git will be released.
-
-## License
-
-The theme is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+[^1]: Ctrl+Click works too, but will jump to the footnote if exists.
+[^2]: Languages as many as CodeMirror supports.
+[^3]: If the theme is not designed for HyperMD, some features might not be present.
+[^4]: Math block use `$$` to wrap your TeX expression.
+[^5]: Use `Ctrl+Shift+V` to paste plain text.
+[^6]: Disabled by default, see [doc]; #use two hash symbol# if tag name contains spaces.
